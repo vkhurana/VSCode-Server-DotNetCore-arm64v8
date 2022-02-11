@@ -51,10 +51,7 @@ RUN apt-get update \
 RUN curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz \
     && mkdir -p /usr/share/dotnet \
     && tar -oxzf dotnet.tar.gz -C /usr/share/dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt \
-    && rm dotnet.tar.gz \
-    # Trigger first run experience by running arbitrary cmd
-    && dotnet help \
-    && dotnet --version
+    && rm dotnet.tar.gz
 
 # Install PowerShell global tool
 RUN curl -fSL --output PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg https://pwshtool.blob.core.windows.net/tool/$POWERSHELL_TOOL_VERSION/PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg \
