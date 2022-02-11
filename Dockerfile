@@ -53,13 +53,13 @@ RUN curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/
     && tar -oxzf dotnet.tar.gz -C /usr/share/dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt \
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    && dotnet --version
+    && /usr/share/dotnet/dotnet --version
 
 # Install PowerShell global tool
 RUN curl -fSL --output PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg https://pwshtool.blob.core.windows.net/tool/$POWERSHELL_TOOL_VERSION/PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg \
     && mkdir -p /usr/share/powershell \
-    && dotnet tool install --add-source / --tool-path /usr/share/powershell --version $POWERSHELL_TOOL_VERSION PowerShell.Linux.arm64 \
-    && dotnet nuget locals all --clear \
+    && /usr/share/dotnet/dotnet tool install --add-source / --tool-path /usr/share/powershell --version $POWERSHELL_TOOL_VERSION PowerShell.Linux.arm64 \
+    && /usr/share/dotnet/dotnet nuget locals all --clear \
     && rm PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg \
     && ln -s /usr/share/powershell/pwsh /usr/bin/pwsh \
     && chmod 755 /usr/share/powershell/pwsh \
