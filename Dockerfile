@@ -50,16 +50,16 @@ RUN apt-get update \
 # Install .NET SDK
 RUN curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz \
     && mkdir -p /usr/share/dotnet \
-    && tar -oxzf dotnet.tar.gz -C /usr/share/dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt \
+    && tar -oxzf dotnet.tar.gz -C /usr/share/dotnet \
     && rm dotnet.tar.gz \
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet \
-    && /usr/share/dotnet/dotnet --version
+    && dotnet --version
 
 # Install PowerShell global tool
 RUN curl -fSL --output PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg https://pwshtool.blob.core.windows.net/tool/$POWERSHELL_TOOL_VERSION/PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg \
     && mkdir -p /usr/share/powershell \
-    && /usr/share/dotnet/dotnet tool install --add-source / --tool-path /usr/share/powershell --version $POWERSHELL_TOOL_VERSION PowerShell.Linux.arm64 \
-    && /usr/share/dotnet/dotnet nuget locals all --clear \
+    && dotnet tool install --add-source / --tool-path /usr/share/powershell --version $POWERSHELL_TOOL_VERSION PowerShell.Linux.arm64 \
+    && dotnet nuget locals all --clear \
     && rm PowerShell.Linux.arm64.$POWERSHELL_TOOL_VERSION.nupkg \
     && ln -s /usr/share/powershell/pwsh /usr/bin/pwsh \
     && chmod 755 /usr/share/powershell/pwsh \
