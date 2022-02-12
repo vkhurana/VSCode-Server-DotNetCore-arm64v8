@@ -55,6 +55,7 @@ jobs:
           platforms: linux/arm64
           push: ${{ env.DOCKER_PUSH }}
           tags: |
+            vkhurana/vscode-server-dotnetcore-arm64v8:latest
             vkhurana/vscode-server-dotnetcore-arm64v8:6.0
           build-args: |
             LABEL_VERSION=6.0
